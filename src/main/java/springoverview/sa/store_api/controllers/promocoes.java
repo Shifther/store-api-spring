@@ -11,37 +11,25 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.annotation.RequestScope;
 
 @RestController
-@RequestMapping("store")
+@RequestMapping("promocoes")
 @CrossOrigin(origins = "*")
 @RequestScope
-public class StoreMainController {
+public class promocoes {
 
-	private final static String WELCOME_MSG = "Welcome to Spring Store";
-
+	private final static String welcome = "Promotions for today!";
+	
 	@GetMapping("welcome")
 	public String welcome(@RequestParam String userName) {
-		return WELCOME_MSG + " " + userName + "!";
-	}
-
-	@GetMapping("date")
-	public String currentDate() {
-		return LocalDate.now().toString();
-	}
-
-	@GetMapping("home")
-	public String home() {
-		return String.format("%s today is %s", WELCOME_MSG, LocalDate.now().toString());
+		return welcome + " " + userName + "!";
 	}
 	
-	
-	@GetMapping("listar-compras-periodo")
-	public List<String> comprasDoPeriodo(@RequestParam String initDate, @RequestParam String endDate ){
+	@GetMapping("promoday")
+	public List<String> comprasDoDia(@RequestParam String initDate , @RequestParam String endDate){
 		
 		System.out.println(initDate);
 		System.out.println(endDate);
-		
-		return List.of("Celular", "Ferro de passar", "Cama");
+		int valorCel = 175;
+		return List.of(("Promoções do dia %s \nCelular por : " + valorCel),LocalDate.now().toString());
 	}
 	
-
 }
