@@ -29,7 +29,9 @@ public class promocoes {
 		System.out.println(initDate);
 		System.out.println(endDate);
 		int valorCel = 175;
-		return List.of(("Promoções do dia %s \nCelular por : " + valorCel),LocalDate.now().toString());
+		int valorTorradeira = 76;
+		int valorComp = 90;
+		return List.of("Promoções do dia " + LocalDate.now().toString(),"Celular : $" +valorCel, "Torradeira : $" +valorTorradeira , "Computador : $" +valorComp);
 	}
 	
 }
