@@ -34,4 +34,6 @@ public class promocoes {
 		return List.of("Promoções do dia " + LocalDate.now().toString(),"Celular : $" +valorCel, "Torradeira : $" +valorTorradeira , "Computador : $" +valorComp);
 	}
 	
+	
+	
 }
