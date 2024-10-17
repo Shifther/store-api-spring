@@ -6,21 +6,21 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 public class Produto {
 
-	private int idClient;
+	private int IdProduct;
 	private float producValue;
 	private String nameProduct;
 	private String producDescrpit;
 	
 	@Override
 	public String toString() {
-		return "Produto [idClient=" + idClient + ", producValue=" + producValue + ", nameProduct=" + nameProduct
+		return "Produto [IdProduct=" + IdProduct + ", producValue=" + producValue + ", nameProduct=" + nameProduct
 				+ ", producDescrpit=" + producDescrpit + "]";
 	}
-	public int getIdClient() {
-		return idClient;
+	public int getIdProduct() {
+		return IdProduct;
 	}
-	public void setIdClient(int idClient) {
-		this.idClient = idClient;
+	public void setIdProduct(int IdProduct) {
+		this.IdProduct = IdProduct;
 	}
 	public float getProducValue() {
 		return producValue;
