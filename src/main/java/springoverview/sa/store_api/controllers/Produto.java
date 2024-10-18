@@ -1,22 +1,19 @@
 package springoverview.sa.store_api.controllers;
 
-import org.springframework.boot.autoconfigure.influx.InfluxDbOkHttpClientBuilderProvider;
-
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-
 public class Produto {
 
-	private int IdProduct;
+	private long IdProduct;
 	private float producValue;
 	private String nameProduct;
 	private String producDescrpit;
+	private Boolean emPromocao; //flag de bolean
 	
 	@Override
 	public String toString() {
 		return "Produto [IdProduct=" + IdProduct + ", producValue=" + producValue + ", nameProduct=" + nameProduct
 				+ ", producDescrpit=" + producDescrpit + "]";
 	}
-	public int getIdProduct() {
+	public long getIdProduct() {
 		return IdProduct;
 	}
 	public void setIdProduct(int IdProduct) {
@@ -40,7 +37,11 @@ public class Produto {
 	public void setProducDescrpit(String producDescrpit) {
 		this.producDescrpit = producDescrpit;
 	}
-	
-	
+    public Boolean getEmPromocao() {
+        return emPromocao;
+    }
+    public void setEmPromocao(Boolean emPromocao) {
+        this.emPromocao = emPromocao;
+    }
 	
 }

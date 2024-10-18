@@ -1,11 +1,7 @@
 package springoverview.sa.store_api.controllers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Producer;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,50 +12,53 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.annotation.RequestScope;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 @RestController
 @RequestMapping("produtos")
 @CrossOrigin(origins = "*")
 
-public class PruductsCrontoller {
+public class PruductsController {
+	
+    @Autowired
+    private ProdutoBean produtoBean; 
+	
 	int counter = 0;
 	@PostMapping("new")
 	public Produto newProd (@RequestBody Produto produto) {		
 		produto.setIdProduct(counter++);
 		produto.setNameProduct(produto.getNameProduct()+counter);
 		produto.setProducDescrpit(produto.getProducDescrpit()+counter);
-		mapaControl.put(produto.getIdProduct(), produto);
-		System.out.println(mapaControl);
+//		produtoBean.getMapaControl.put(produto.getIdProduct(), produto);
+		produtoBean.adicionarAtualizarProduto(produto);
+		System.out.println(produtoBean.getMapaControl());
 		return produto;
 	}	
 	
 	@GetMapping("productlist")
 	public List<Produto> listProduto (){
-		return mapaControl.entrySet().stream().map(e -> e.getValue()).toList();
+		return produtoBean.getMapaControl().entrySet().stream().map(e -> e.getValue()).toList();
 	}
 	
-	@GetMapping("serchbyid")
-	public Produto serchID(@RequestParam Integer iDProd){
-		Produto produto = mapaControl.get(iDProd);		
+	@GetMapping("searchbyid")
+	public Produto serchID(@RequestParam Integer IdProduct){
+		Produto produto = produtoBean.buscarProduto((long)IdProduct);		
 		return produto;
 	}
-	
-	Map < Integer, Produto > mapaControl = new HashMap<>();
-	
+
 	@DeleteMapping("delbyid/{id}")
-	public Produto deletebyID(@PathVariable Integer id) {
-		Produto produto = mapaControl.remove(id);
+	public Produto deletebyID(@PathVariable long id) {
+		Produto produto = produtoBean.getMapaControl().remove(id);
 		return produto;
 	}	
 	
 	@PutMapping("updateproduct/{id}")
 	public Produto attProduct (@PathVariable Integer id, @RequestBody Produto produto) {
-		Produto produtoFound = mapaControl.get(id);
+		Produto produtoFound = produtoBean.buscarProduto(id);
 		if (produtoFound != null) {
-		    produto.setIdProduct(id);
-			mapaControl.put(id, produto);
+		    produto.setIdProduct(id.intValue());
+			produtoBean.adicionarAtualizarProduto(produto);
 			return produto;
 		}return null;
 	}
