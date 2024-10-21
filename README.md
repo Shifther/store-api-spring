@@ -5,15 +5,16 @@ Este projeto tem como objetivo fornecer uma API REST para gerenciamento de lojas
 Tecnologias usadas: Spring Boot, PostgreSQL, Java 11, JUnit, Swagger.
 
 Para Clonar o repositório utilize:
-
+```bash
 git clone https://github.com/Shifther/store-api-spring.git
 cd store-api-spring
 ./mvnw spring-boot:run
-
+```
 
 caso precise testar:
+```bash
 ./mvnw test
-
+```
 
 ## Exemplos de uso
 ### Criar um produto
