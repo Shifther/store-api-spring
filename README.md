@@ -24,8 +24,8 @@ caso precise testar:
   "producValue": 1399.99,
   "nameProduct": "Celular",
   "producDescrpit": "Sansumg galaxy",
-	"emPromocao": true,
-	"vendido": true
+  "emPromocao": true,
+  "vendido": true
 }
 
 ```
