@@ -28,8 +28,8 @@ public class PruductsController {
 	@PostMapping("new")
 	public Produto newProd (@RequestBody Produto produto) {		
 		produto.setIdProduct(counter++);
-		produto.setNameProduct(produto.getNameProduct()+counter);
-		produto.setProducDescrpit(produto.getProducDescrpit()+counter);
+		produto.setNameProduct(produto.getNameProduct()+" "+counter);
+		produto.setProducDescrpit(produto.getProducDescrpit()+" "+counter);
 //		produtoBean.getMapaControl.put(produto.getIdProduct(), produto);
 		produtoBean.adicionarAtualizarProduto(produto);
 		System.out.println(produtoBean.getMapaControl());

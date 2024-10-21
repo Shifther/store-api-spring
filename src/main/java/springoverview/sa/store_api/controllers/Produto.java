@@ -11,8 +11,8 @@ public class Produto {
 	
 	@Override
 	public String toString() {
-		return "Produto [IdProduct=" + IdProduct + ", producValue=" + producValue + ", nameProduct=" + nameProduct
-				+ ", producDescrpit=" + producDescrpit + ", emPromocao = " + emPromocao + ", vendido = " + prodVendido + "]";
+		return "Produto [IdProduct= " + IdProduct + ", producValue= " + producValue + ", nameProduct= " + nameProduct
+				+ ", producDescrpit= " + producDescrpit + ", emPromocao = " + emPromocao + ", vendido = " + prodVendido + "]";
 	}
 	public long getIdProduct() {
 		return IdProduct;

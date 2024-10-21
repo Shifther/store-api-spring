@@ -32,10 +32,10 @@ public class VendasController {
     
 
 	@PutMapping("/{id}/vendido")
-	public ResponseEntity<Produto> atualizarVenda(@PathVariable Long id, @RequestParam Boolean emPromocao) {
-	    Produto produtoAtualizado = produtoBean.atualizarFlagVendido(id, emPromocao);
+	public ResponseEntity<Produto> atualizarVenda(@PathVariable Long id, @RequestParam Boolean prodVendido) {
+	    Produto produtoAtualizado = produtoBean.atualizarFlagVendido(id, prodVendido);
 	    if (produtoAtualizado != null) {
-	        produtoAtualizado.setVendido(emPromocao);
+	        produtoAtualizado.setVendido(prodVendido);
 	        return ResponseEntity.ok(produtoAtualizado);
 	    } else 
 	        return ResponseEntity.notFound().build();
