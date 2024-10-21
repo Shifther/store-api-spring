@@ -24,6 +24,5 @@ caso precise testar:
   "price": 2999.99,
   "quantity": 10
 }
-
-
+```
 feat: adicionar endpoint para listagem de produtos paginados
