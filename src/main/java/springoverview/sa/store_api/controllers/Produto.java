@@ -7,11 +7,12 @@ public class Produto {
 	private String nameProduct;
 	private String producDescrpit;
 	private Boolean emPromocao; //flag de bolean
+	private Boolean prodVendido;
 	
 	@Override
 	public String toString() {
 		return "Produto [IdProduct=" + IdProduct + ", producValue=" + producValue + ", nameProduct=" + nameProduct
-				+ ", producDescrpit=" + producDescrpit + "]";
+				+ ", producDescrpit=" + producDescrpit + ", emPromocao = " + emPromocao + ", vendido = " + prodVendido + "]";
 	}
 	public long getIdProduct() {
 		return IdProduct;
@@ -43,5 +44,11 @@ public class Produto {
     public void setEmPromocao(Boolean emPromocao) {
         this.emPromocao = emPromocao;
     }
-	
+    
+	public boolean isVendido() {
+		return this.prodVendido;
+	}
+	public void setVendido(Boolean prodVendido) {
+		this.prodVendido = prodVendido;
+	}
 }

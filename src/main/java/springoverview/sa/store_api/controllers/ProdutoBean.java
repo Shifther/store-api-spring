@@ -20,10 +20,20 @@ public class ProdutoBean {
 		}
 		return produto;
 	}
+
 	public Produto adicionarAtualizarProduto(Produto produto) {
 		mapaControl.put(produto.getIdProduct(),produto);
 		return produto;
 	}
+	
+	public Produto atualizarFlagVendido(Long id, Boolean prodVendido) {
+		Produto produto = mapaControl.get(id);
+		if (produto != null) {
+			produto.setVendido(prodVendido);
+		}
+		return produto;
+	}
+	
 	public Map<Long, Produto> getMapaControl(){
 		return mapaControl;
 	}
