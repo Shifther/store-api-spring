@@ -19,10 +19,14 @@ caso precise testar:
 ### Criar um produto
 **POST /api/products**
 ```json
+
 {
-  "name": "Notebook",
-  "price": 2999.99,
-  "quantity": 10
+  "producValue": 1399.99,
+  "nameProduct": "Celular",
+  "producDescrpit": "Sansumg galaxy",
+	"emPromocao": true,
+	"vendido": true
 }
+
 ```
 feat: adicionar endpoint para listagem de produtos paginados
