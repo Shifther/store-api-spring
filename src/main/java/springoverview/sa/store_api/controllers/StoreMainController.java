@@ -1,8 +1,11 @@
 package springoverview.sa.store_api.controllers;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +20,15 @@ import org.springframework.web.context.annotation.RequestScope;
 public class StoreMainController {
 
 	private final static String WELCOME_MSG = "Welcome to Spring Store";
-
+	
+	@Autowired
+	@Qualifier("getlocalDateTime")
+	private LocalDateTime localDateTime; 
+	
+	@Autowired
+	@Qualifier("initialLocalDate")
+	private LocalDateTime timeActual;
+	
 	@GetMapping("welcome")
 	public String welcome(@RequestParam String userName) {
 		return WELCOME_MSG + " " + userName + "!";
@@ -43,5 +54,15 @@ public class StoreMainController {
 		return List.of("Celular", "Ferro de passar", "Cama");
 	}
 	
-
+	
+	@GetMapping("horaatual")
+	public LocalDateTime initiDate(){
+		return localDateTime;
+	}
+	
+	@GetMapping("horafixa")
+	public LocalDateTime timeActual() {
+		return timeActual;
+	}
+	
 }
