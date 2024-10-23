@@ -32,7 +32,7 @@ public class PruductsController {
 		produto.setProducDescrpit(produto.getProducDescrpit()+" "+counter);
 //		produtoBean.getMapaControl.put(produto.getIdProduct(), produto);
 		produtoBean.adicionarAtualizarProduto(produto);
-		System.out.println(produtoBean.getMapaControl());	
+//		System.out.println(produtoBean.getMapaControl());	
 		return produto;
 	}	
 	

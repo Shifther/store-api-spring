@@ -34,7 +34,22 @@ public class ProdutoBean {
 		return produto;
 	}
 	
+	public Produto comprarProduto(Long idProduct) {
+	    Produto produto = mapaControl.get(idProduct);
+	    if (produto != null && produto.getQuantidade() > 0) {
+	        produto.setQuantidade(produto.getQuantidade() - 1);  // Decrementa a quantidade
+	        
+	        if (produto.getQuantidade() == 0) {
+	        	produto.setVendido(true);
+	        }
+	        return produto;
+	    }
+	    return null;  // Produto não encontrado ou sem estoque
+	}
+	
 	public Map<Long, Produto> getMapaControl(){
 		return mapaControl;
 	}
+	
+
 }

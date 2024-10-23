@@ -8,6 +8,7 @@ public class Produto {
 	private String producDescrpit;
 	private Boolean emPromocao; //flag de bolean
 	private Boolean prodVendido;
+	private int quantidade;
 	
 	@Override
 	public String toString() {
@@ -51,4 +52,14 @@ public class Produto {
 	public void setVendido(Boolean prodVendido) {
 		this.prodVendido = prodVendido;
 	}
+	
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+	
 }

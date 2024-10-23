@@ -3,11 +3,15 @@ package springoverview.sa.store_api.controllers;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +24,9 @@ import org.springframework.web.context.annotation.RequestScope;
 public class StoreMainController {
 
 	private final static String WELCOME_MSG = "Welcome to Spring Store";
+	
+	@Autowired
+	private ProdutoBean produtoBean; 
 	
 	@Autowired
 	@Qualifier("getlocalDateTime")
@@ -65,4 +72,29 @@ public class StoreMainController {
 		return timeActual;
 	}
 	
+	@GetMapping("avenda")
+	public ResponseEntity<List<Produto>> listVendas() {
+		List<Produto> produtosVendidos  = produtoBean.getMapaControl().values().stream()
+			    .filter(Produto::isVendido)
+			    .collect(Collectors.toList());
+	    return ResponseEntity.ok(produtosVendidos);
+	} 
+    
+	@PostMapping("/products/{id}/comprar")
+	public String comprarProduto(@PathVariable long id) {
+		Produto produto = produtoBean.comprarProduto(id);
+		if (produto != null) {
+			return "Compra realizada com sucesso! Produto: " + produto.getNameProduct() + ", Nova quantidade: " + produto.getQuantidade();
+		}
+		return "Produto nao encontrado ou estoque esgotado.";
+	}
+	
+    @PostMapping("/products/{id}/vendido")
+    public String marcarComoVendido(@PathVariable long id) {
+        Produto produto = produtoBean.atualizarFlagVendido(id, true); // Marca como vendido
+        if (produto != null) {
+            return "Produto " + produto.getNameProduct() + " foi marcado como vendido.";
+        }
+        return "Produto não encontrado.";
+    }
 }
