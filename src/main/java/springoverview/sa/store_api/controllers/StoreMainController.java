@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.annotation.RequestScope;
 
-import springoverview.sa.store_api.funcions.Produto;
-import springoverview.sa.store_api.funcions.ProdutoBean;
+import springoverview.sa.store_api.models.Produto;
+import springoverview.sa.store_api.objects.ProdutoBean;
 
 @RestController
 @RequestMapping("store")
@@ -77,6 +77,7 @@ public class StoreMainController {
 	
 	@GetMapping("avenda")
 	public ResponseEntity<List<Produto>> listVendas() {
+		
 	    List<Produto> produtosVendidos = produtoBean.getMapaControl().values().stream()
 	            .filter(Produto::isVendido) // Filtra produtos que foram vendidos
 	            .collect(Collectors.toList());

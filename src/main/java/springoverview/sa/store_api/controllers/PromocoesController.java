@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import springoverview.sa.store_api.funcions.Produto;
-import springoverview.sa.store_api.funcions.ProdutoBean;
+import springoverview.sa.store_api.models.Produto;
+import springoverview.sa.store_api.objects.ProdutoBean;
 
 @RestController
 @RequestMapping("promocoes")
@@ -65,7 +65,7 @@ public class PromocoesController {
 	    @PostMapping("/")
 	    public ResponseEntity<Produto> adicionarProduto(@RequestBody Produto produto) {
 	        try {
-	        	Produto produtoSalvo = produtoBean.adicionarAtualizarProduto(produto);
+	        	Produto produtoSalvo = produtoBean.adicionarProduto(produto);
 	        	return ResponseEntity.ok(produtoSalvo);
 	        }
 	        catch(IllegalArgumentException e){        

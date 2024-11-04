@@ -3,8 +3,10 @@ package springoverview.sa.store_api.controllers;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
-import springoverview.sa.store_api.funcions.Produto;
-import springoverview.sa.store_api.funcions.ProdutoBean;
+
+import springoverview.sa.store_api.models.Produto;
+import springoverview.sa.store_api.objects.ProdutoBean;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,15 +21,19 @@ public class PruductsController {
     @Autowired
     private ProdutoBean produtoBean; 
 	
-	
-	@PostMapping("new")
-	public ResponseEntity<Produto> newProd (@RequestBody Produto produto) {				
-		if (produto.getIdProduct() == -1) {
+	@PostMapping("/adicionar")
+	public ResponseEntity<Produto> adicionarProduto(@RequestBody Produto produto) {
+		if (produto.getIdProduct() == -1 || produto.getIdProduct() == 0) {
 			produto.setIdProduct(System.currentTimeMillis());
-		}		
-		produtoBean.adicionarAtualizarProduto(produto);
-	    return ResponseEntity.ok(produto);
-	}	
+		}
+		try {
+			produtoBean.adicionarProduto(produto);
+		}catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(null);
+		}
+		
+		return ResponseEntity.ok(produto);
+	}
 	
 	@GetMapping("productlist")
 	public List<Produto> listProduto (){
@@ -35,11 +41,11 @@ public class PruductsController {
 	}
 	
 	@GetMapping("{id}")
-	public ResponseEntity<Produto> serchID(@PathVariable long IdProduct) {
+	public ResponseEntity<Produto> searchID(@PathVariable long IdProduct) {
 	    Produto produto = produtoBean.buscarProduto(IdProduct);
 	    if (produto == null) {
 	        // Retorna 404 Not Found se o produto não existir
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Retorna null para o corpo
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 	    }
 	    return ResponseEntity.ok(produto); // Retorna o produto encontrado
 	}
@@ -60,7 +66,7 @@ public class PruductsController {
 		if (produtoFound == null) {
 		    return ResponseEntity.notFound().build();
 		}	
-		produtoBean.adicionarAtualizarProduto(produto);
+		produtoBean.atualizarProduto(produto);
 		return ResponseEntity.ok(produto);
 	}
 }
