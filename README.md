@@ -28,20 +28,21 @@ store-api-spring/
 │   │   │   └── springoverview/
 │   │   │       └── sa/
 │   │   │           └── store_api/
-│   │   │               ├── config/         # Configurações do Swagger e do banco de dados
-│   │   │               ├── controllers/    # Controladores para gerenciar rotas da API
-│   │   │               ├── models/         # Modelos de dados para produtos e vendas
-│   │   │               ├── services/       # Lógica de negócios
-│   │   │               └── StoreApiApplication.java  # Classe principal
+│   │   │               ├── config/                     # Configurações do Swagger e do banco de dados
+│   │   │               ├── controllers/                # Controladores para gerenciar rotas da API
+│   │   │               ├── models/                     # Modelos de dados para produtos e vendas
+│   │   │               ├── services/                   # Lógica de negócios
+│   │   │               └── StoreApiApplication.java    # Classe principal
 │   │   └── resources/
-│   │       ├── application.properties      # Configurações da aplicação
-│   │       └── static/                     # Arquivos estáticos (se houver)
+│   │       ├── application.properties                  # Configurações da aplicação
+│   │       └── static/                                 # Arquivos estáticos (se houver)
 │   └── test/
 │       └── java/
 │           └── springoverview/
 │               └── sa/
-│                   └── store_api/         # Testes unitários e de integração
-└── pom.xml                                   # Configuração do Maven
+│                   └── store_api/                     # Testes unitários e de integração
+└── pom.xml                                             # Configuração do Maven
+
 ```
 
 ## Pré-requisitos
