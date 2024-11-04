@@ -9,13 +9,13 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 
 public class ApiConfiguration {
-	@Bean("getlocalDateTime")
+	@Bean("requestTimestamp")
 	@Scope("request")
 	public LocalDateTime initDate(){
 		return LocalDateTime.now();
 	}
 	
-	@Bean("initialLocalDate")
+	@Bean("startupTimestamp")
 	@Scope("singleton")
 	public LocalDateTime getTime(){
 		return LocalDateTime.now();

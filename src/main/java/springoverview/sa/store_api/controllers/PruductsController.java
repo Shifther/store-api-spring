@@ -2,17 +2,12 @@ package springoverview.sa.store_api.controllers;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import springoverview.sa.store_api.funcions.Produto;
+import springoverview.sa.store_api.funcions.ProdutoBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 
 @RestController
@@ -24,42 +19,48 @@ public class PruductsController {
     @Autowired
     private ProdutoBean produtoBean; 
 	
-	int counter = 0;
+	
 	@PostMapping("new")
-	public Produto newProd (@RequestBody Produto produto) {		
-		produto.setIdProduct(counter++);
-		produto.setNameProduct(produto.getNameProduct()+" "+counter);
-		produto.setProducDescrpit(produto.getProducDescrpit()+" "+counter);
-//		produtoBean.getMapaControl.put(produto.getIdProduct(), produto);
+	public ResponseEntity<Produto> newProd (@RequestBody Produto produto) {				
+		if (produto.getIdProduct() == -1) {
+			produto.setIdProduct(System.currentTimeMillis());
+		}		
 		produtoBean.adicionarAtualizarProduto(produto);
-//		System.out.println(produtoBean.getMapaControl());	
-		return produto;
+	    return ResponseEntity.ok(produto);
 	}	
 	
 	@GetMapping("productlist")
 	public List<Produto> listProduto (){
-		return produtoBean.getMapaControl().entrySet().stream().map(e -> e.getValue()).toList();
+		return produtoBean.getMapaControl().values().stream().toList();
 	}
 	
-	@GetMapping("searchbyid")
-	public Produto serchID(@RequestParam Integer IdProduct){
-		Produto produto = produtoBean.buscarProduto((long)IdProduct);		
-		return produto;
+	@GetMapping("{id}")
+	public ResponseEntity<Produto> serchID(@PathVariable long IdProduct) {
+	    Produto produto = produtoBean.buscarProduto(IdProduct);
+	    if (produto == null) {
+	        // Retorna 404 Not Found se o produto não existir
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Retorna null para o corpo
+	    }
+	    return ResponseEntity.ok(produto); // Retorna o produto encontrado
 	}
 
-	@DeleteMapping("delbyid/{id}")
-	public Produto deletebyID(@PathVariable long id) {
-		Produto produto = produtoBean.getMapaControl().remove(id);
-		return produto;
+	@DeleteMapping("{id}")
+	public ResponseEntity<String> deletebyID(@PathVariable long IdProduct) {
+		Produto produto = produtoBean.buscarProduto(IdProduct);
+		if (produto == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado.");
+		}
+		produtoBean.removerProduto(IdProduct);
+		return ResponseEntity.ok("Produto deletado com sucesso.");
 	}	
 	
-	@PutMapping("updateproduct/{id}")
-	public Produto attProduct (@PathVariable Integer id, @RequestBody Produto produto) {
-		Produto produtoFound = produtoBean.buscarProduto(id);
-		if (produtoFound != null) {
-		    produto.setIdProduct(id.intValue());
-			produtoBean.adicionarAtualizarProduto(produto);
-			return produto;
-		}return null;
+	@PutMapping("update/{id}")
+	public ResponseEntity<Produto> updateProduct (@PathVariable Integer id, @RequestBody Produto produto) {
+		Produto produtoFound = produtoBean.buscarProduto(id);		
+		if (produtoFound == null) {
+		    return ResponseEntity.notFound().build();
+		}	
+		produtoBean.adicionarAtualizarProduto(produto);
+		return ResponseEntity.ok(produto);
 	}
 }

@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.annotation.RequestScope;
 
+import springoverview.sa.store_api.funcions.Produto;
+import springoverview.sa.store_api.funcions.ProdutoBean;
+
 @RestController
 @RequestMapping("store")
 @CrossOrigin(origins = "*")
@@ -74,19 +77,16 @@ public class StoreMainController {
 	
 	@GetMapping("avenda")
 	public ResponseEntity<List<Produto>> listVendas() {
-		List<Produto> produtosVendidos  = produtoBean.getMapaControl().values().stream()
-			    .filter(Produto::isVendido)
-			    .collect(Collectors.toList());
+	    List<Produto> produtosVendidos = produtoBean.getMapaControl().values().stream()
+	            .filter(Produto::isVendido) // Filtra produtos que foram vendidos
+	            .collect(Collectors.toList());
 	    return ResponseEntity.ok(produtosVendidos);
-	} 
+	}
     
 	@PostMapping("/products/{id}/comprar")
-	public String comprarProduto(@PathVariable long id) {
-		Produto produto = produtoBean.comprarProduto(id);
-		if (produto != null) {
-			return "Compra realizada com sucesso! Produto: " + produto.getNameProduct() + ", Nova quantidade: " + produto.getQuantidade();
-		}
-		return "Produto nao encontrado ou estoque esgotado.";
+	public ResponseEntity<String> comprarProduto(@PathVariable long idProduct, @RequestParam int quantidade) {
+		ResponseEntity<String> response = produtoBean.comprarProduto(idProduct, quantidade);
+		return response;
 	}
 	
     @PostMapping("/products/{id}/vendido")

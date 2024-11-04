@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import springoverview.sa.store_api.funcions.Produto;
+import springoverview.sa.store_api.funcions.ProdutoBean;
+
 @RestController
 @RequestMapping("promocoes")
 @CrossOrigin(origins = "*")
-public class Promocoes {
+public class PromocoesController {
 	
 	@Autowired
 	private ProdutoBean produtoBean;
@@ -61,7 +64,12 @@ public class Promocoes {
 		
 	    @PostMapping("/")
 	    public ResponseEntity<Produto> adicionarProduto(@RequestBody Produto produto) {
-	        Produto produtoSalvo = produtoBean.adicionarAtualizarProduto(produto);
-	        return ResponseEntity.ok(produtoSalvo);
-	    }   
+	        try {
+	        	Produto produtoSalvo = produtoBean.adicionarAtualizarProduto(produto);
+	        	return ResponseEntity.ok(produtoSalvo);
+	        }
+	        catch(IllegalArgumentException e){        
+	        	return ResponseEntity.badRequest().body(null);
+	        }
+	 }   
 }
